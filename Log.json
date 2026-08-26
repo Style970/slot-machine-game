@@ -1,0 +1,11 @@
+{
+"message": "Login successful",
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YThkZDZhNGIwZmYwMDMyZWUwMmIzZDgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3ODc2ODIzODksImV4cCI6MTc4ODI4NzE4OX0.Jf88bRm9-ZQAeK9hRro0C6nWvD1Ep23UyMofG9yLvSw",
+"user": {
+"id": "6a8dd6a4b0ff0032ee02b3d8",
+"name": "Sher khan",
+"mobile": "+916203617058",
+"balance": 1000,
+"role": "admin"
+}
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h1>
+            🎰 Login
+        </h1>
+
+        <p class="subtitle">
+            Welcome back
+        </p>
+
+
+        <form id="loginForm">
+
+            <label>
+                Mobile Number
+            </label>
+
+            <input
+                type="tel"
+                id="loginMobile"
+                placeholder="+919876543210"
+                required
+                autocomplete="tel"
+            >
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+                required
+                autocomplete="current-password"
+            >
+
+
+            <button
+                type="submit"
+                class="primary-button"
+            >
+                Login
+            </button>
+
+        </form>
+
+
+        <div
+            id="loginMessage"
+            class="form-message"
+        ></div>
+
+
+        <p class="auth-link">
+
+            Don't have an account?
+
+            <a href="/register.html">
+                Register
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<script src="/js/auth.js"></script>
+
+</body>
+
+</html>

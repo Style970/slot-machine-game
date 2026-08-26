@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0f172a"
+    >
+
+    <title>🎰 Lucky Slots</title>
+
+
+    <style>
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #312e81 0%,
+                    #111827 45%,
+                    #020617 100%
+                );
+
+            color: #ffffff;
+
+            padding: 15px;
+
+        }
+
+
+        button {
+
+            font-family: inherit;
+
+        }
+
+
+        /* =========================
+           MAIN GAME
+        ========================= */
+
+        .game {
+
+            width: 100%;
+
+            max-width: 600px;
+
+            margin:
+                0 auto;
+
+            padding:
+                15px;
+
+        }
+
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .top-bar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            gap: 10px;
+
+            padding:
+                12px 15px;
+
+            margin-bottom: 20px;
+
+            background:
+                rgba(15, 23, 42, .85);
+
+            border:
+                1px solid
+                rgba(255,255,255,.1);
+
+            border-radius: 14px;
+
+            backdrop-filter:
+                blur(10px);
+
+        }
+
+
+        #username {
+
+            color: #c4b5fd;
+
+            font-weight: 700;
+
+        }
+
+
+        #logoutButton {
+
+            border: none;
+
+            padding:
+                8px 14px;
+
+            border-radius: 8px;
+
+            background:
+                #ef4444;
+
+            color: #fff;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        #logoutButton:active {
+
+            transform:
+                scale(.96);
+
+        }
+
+
+        /* =========================
+           TITLE
+        ========================= */
+
+        h1 {
+
+            text-align: center;
+
+            font-size: 34px;
+
+            margin-bottom: 20px;
+
+            color: #ffffff;
+
+            text-shadow:
+                0 0 15px
+                rgba(139,92,246,.8);
+
+        }
+
+
+        /* =========================
+           BALANCE
+        ========================= */
+
+        .balance-box {
+
+            text-align: center;
+
+            padding:
+                14px;
+
+            margin-bottom: 10px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #166534,
+                    #15803d
+                );
+
+            border:
+                1px solid
+                #22c55e;
+
+            box-shadow:
+                0 8px 25px
+                rgba(34,197,94,.2);
+
+            font-size: 18px;
+
+            font-weight: 600;
+
+        }
+
+
+        #balance {
+
+            font-size: 24px;
+
+            color: #fef08a;
+
+            margin-left: 5px;
+
+        }
+
+
+        /* =========================
+           BET INFO
+        ========================= */
+
+        .bet-info {
+
+            text-align: center;
+
+            margin:
+                12px 0;
+
+            color: #cbd5e1;
+
+        }
+
+
+        #bet {
+
+            color: #facc15;
+
+        }
+
+
+        /* =========================
+           SLOT MACHINE OUTER
+        ========================= */
+
+        .slot-machine {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 6px;
+
+            width: 100%;
+
+            padding: 10px;
+
+            border:
+                4px solid
+                #facc15;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #7c2d12,
+                    #991b1b,
+                    #7f1d1d
+                );
+
+            box-shadow:
+
+                0 0 0 3px
+                #451a03,
+
+                0 0 30px
+                rgba(250,204,21,.45),
+
+                inset 0 0 25px
+                rgba(0,0,0,.6);
+
+        }
+
+
+        /* =========================
+           REELS
+        ========================= */
+
+        .reel {
+
+            display: grid;
+
+            grid-template-rows:
+                repeat(3, 1fr);
+
+            gap: 5px;
+
+            min-width: 0;
+
+            padding: 4px;
+
+            border-radius: 10px;
+
+            background:
+                #111827;
+
+            box-shadow:
+                inset 0 0 10px
+                rgba(0,0,0,.8);
+
+        }
+
+
+        /* =========================
+           SYMBOL
+        ========================= */
+
+        .symbol {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            aspect-ratio: 1 / 1;
+
+            min-height: 52px;
+
+            border-radius: 8px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #f8fafc,
+                    #cbd5e1
+                );
+
+            color: #111827;
+
+            font-size:
+                clamp(
+                    24px,
+                    8vw,
+                    42px
+                );
+
+            box-shadow:
+
+                inset 0 2px 3px
+                rgba(255,255,255,.8),
+
+                inset 0 -3px 5px
+                rgba(0,0,0,.25);
+
+            user-select: none;
+
+            transition:
+                transform .15s ease;
+
+        }
+
+
+        .symbol:hover {
+
+            transform:
+                scale(1.04);
+
+        }
+
+
+        /* =========================
+           SPIN ANIMATION
+        ========================= */
+
+        .reel.spinning .symbol {
+
+            animation:
+                symbolShake
+                .08s
+                linear
+                infinite;
+
+        }
+
+
+        @keyframes symbolShake {
+
+            0% {
+                transform:
+                    translateY(-3px);
+            }
+
+            50% {
+                transform:
+                    translateY(3px);
+            }
+
+            100% {
+                transform:
+                    translateY(-3px);
+            }
+
+        }
+
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .message {
+
+            min-height: 30px;
+
+            margin:
+                18px 0 12px;
+
+            text-align: center;
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            color: #e2e8f0;
+
+        }
+
+
+        .message.win {
+
+            color: #4ade80;
+
+            text-shadow:
+                0 0 12px
+                rgba(74,222,128,.7);
+
+            animation:
+                winPulse
+                .7s
+                ease-in-out
+                infinite alternate;
+
+        }
+
+
+        .message.jackpot {
+
+            color: #facc15;
+
+            font-size: 23px;
+
+            text-shadow:
+                0 0 20px
+                rgba(250,204,21,.9);
+
+            animation:
+                jackpotPulse
+                .5s
+                ease-in-out
+                infinite alternate;
+
+        }
+
+
+        .message.lose {
+
+            color: #f87171;
+
+        }
+
+
+        @keyframes winPulse {
+
+            from {
+                transform:
+                    scale(1);
+            }
+
+            to {
+                transform:
+                    scale(1.05);
+            }
+
+        }
+
+
+        @keyframes jackpotPulse {
+
+            from {
+                transform:
+                    scale(1);
+            }
+
+            to {
+                transform:
+                    scale(1.12);
+            }
+
+        }
+
+
+        /* =========================
+           BET CONTROLS
+        ========================= */
+
+        .controls {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                center;
+
+            gap: 12px;
+
+            margin:
+                10px 0 15px;
+
+        }
+
+
+        .controls button {
+
+            width: 48px;
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background:
+                #334155;
+
+            color: white;
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 4px 10px
+                rgba(0,0,0,.3);
+
+        }
+
+
+        .controls button:hover {
+
+            background:
+                #475569;
+
+        }
+
+
+        .controls button:active {
+
+            transform:
+                scale(.92);
+
+        }
+
+
+        .controls button:disabled {
+
+            opacity: .4;
+
+            cursor: not-allowed;
+
+        }
+
+
+        .bet-control {
+
+            min-width: 120px;
+
+            padding:
+                12px 18px;
+
+            text-align: center;
+
+            border-radius: 10px;
+
+            background:
+                #1e293b;
+
+            border:
+                1px solid
+                #475569;
+
+            color: #cbd5e1;
+
+        }
+
+
+        #betControl {
+
+            color: #facc15;
+
+            font-size: 20px;
+
+        }
+
+
+        /* =========================
+           SPIN BUTTON
+        ========================= */
+
+        .spin-button {
+
+            width: 100%;
+
+            padding:
+                17px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #facc15,
+                    #f59e0b,
+                    #ea580c
+                );
+
+            color: #451a03;
+
+            font-size: 22px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+            cursor: pointer;
+
+            box-shadow:
+
+                0 8px 20px
+                rgba(245,158,11,.35),
+
+                inset 0 1px 0
+                rgba(255,255,255,.6);
+
+            transition:
+                transform .15s ease,
+                box-shadow .15s ease;
+
+        }
+
+
+        .spin-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+
+                0 12px 28px
+                rgba(245,158,11,.45);
+
+        }
+
+
+        .spin-button:active {
+
+            transform:
+                scale(.97);
+
+        }
+
+
+        .spin-button:disabled {
+
+            opacity: .5;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+        }
+
+
+        /* =========================
+           HISTORY BUTTON
+        ========================= */
+
+        .reset-button {
+
+            width: 100%;
+
+            padding:
+                12px;
+
+            margin-top: 12px;
+
+            border:
+                1px solid
+                #475569;
+
+            border-radius: 10px;
+
+            background:
+                #1e293b;
+
+            color: #e2e8f0;
+
+            font-size: 15px;
+
+            cursor: pointer;
+
+        }
+
+
+        .reset-button:hover {
+
+            background:
+                #334155;
+
+        }
+
+
+        /* =========================
+           HISTORY
+        ========================= */
+
+        .history {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+            margin-top: 15px;
+
+            max-height: 280px;
+
+            overflow-y: auto;
+
+        }
+
+
+        .history:empty {
+
+            display: none;
+
+        }
+
+
+        .history-item {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr 1fr;
+
+            gap: 8px;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(15,23,42,.9);
+
+            border:
+                1px solid
+                #334155;
+
+            font-size: 13px;
+
+        }
+
+
+        .history-item strong {
+
+            color: #cbd5e1;
+
+        }
+
+
+        .history-item span {
+
+            color: #4ade80;
+
+            font-weight: bold;
+
+        }
+
+
+        .history-item small {
+
+            color: #94a3b8;
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 480px) {
+
+            body {
+
+                padding: 8px;
+
+            }
+
+
+            .game {
+
+                padding: 5px;
+
+            }
+
+
+            h1 {
+
+                font-size: 28px;
+
+            }
+
+
+            .slot-machine {
+
+                gap: 4px;
+
+                padding: 7px;
+
+                border-width: 3px;
+
+                border-radius: 14px;
+
+            }
+
+
+            .reel {
+
+                gap: 4px;
+
+                padding: 3px;
+
+            }
+
+
+            .symbol {
+
+                min-height: 48px;
+
+                font-size:
+                    clamp(
+                        21px,
+                        8vw,
+                        34px
+                    );
+
+                border-radius: 6px;
+
+            }
+
+
+            .top-bar {
+
+                padding: 10px;
+
+            }
+
+
+            .spin-button {
+
+                padding: 15px;
+
+                font-size: 20px;
+
+            }
+
+        }
+
+
+        /* =========================
+           VERY SMALL DEVICES
+        ========================= */
+
+        @media (max-width: 360px) {
+
+            .slot-machine {
+
+                gap: 2px;
+
+                padding: 5px;
+
+            }
+
+
+            .reel {
+
+                gap: 2px;
+
+                padding: 2px;
+
+            }
+
+
+            .symbol {
+
+                min-height: 43px;
+
+                font-size: 24px;
+
+            }
+
+
+            .controls {
+
+                gap: 7px;
+
+            }
+
+
+            .controls button {
+
+                width: 42px;
+
+                height: 42px;
+
+                font-size: 24px;
+
+            }
+
+
+            .bet-control {
+
+                min-width: 100px;
+
+                padding:
+                    10px;
+
+            }
+
+        }
+
+
+        /* =========================
+           SCROLLBAR
+        ========================= */
+
+        .history::-webkit-scrollbar {
+
+            width: 6px;
+
+        }
+
+
+        .history::-webkit-scrollbar-track {
+
+            background:
+                #0f172a;
+
+        }
+
+
+        .history::-webkit-scrollbar-thumb {
+
+            background:
+                #475569;
+
+            border-radius: 10px;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="game">
+
+
+    <!-- TOP BAR -->
+
+    <div class="top-bar">
+
+        <div>
+
+            👤
+
+            <span id="username">
+                User
+            </span>
+
+        </div>
+
+
+        <button
+            id="logoutButton"
+        >
+            Logout
+        </button>
+
+    </div>
+
+
+    <!-- TITLE -->
+
+    <h1>
+        🎰 Lucky Slots
+    </h1>
+
+
+    <!-- BALANCE -->
+       <button
+    id="addBalanceButton"
+    class="add-balance-button"
+   >
+    💰 Add Balance
+  </button>
+  
+    <div class="balance-box">
+
+        💰 Balance:
+
+        <span id="balance">
+            0
+        </span>
+
+    </div>
+  
+
+    <!-- CURRENT BET -->
+
+    <div class="bet-info">
+
+        Current Bet:
+
+        <strong id="bet">
+            10
+        </strong>
+
+    </div>
+
+
+    <!-- 5 × 3 SLOT -->
+
+    <div class="slot-machine">
+
+
+        <div
+            class="reel"
+            id="reel0"
+        >
+
+            <div class="symbol">
+                🍒
+            </div>
+
+            <div class="symbol">
+                🍋
+            </div>
+
+            <div class="symbol">
+                ⭐
+            </div>
+
+        </div>
+
+
+        <div
+            class="reel"
+            id="reel1"
+        >
+
+            <div class="symbol">
+                🍊
+            </div>
+
+            <div class="symbol">
+                🍉
+            </div>
+
+            <div class="symbol">
+                💎
+            </div>
+
+        </div>
+
+
+        <div
+            class="reel"
+            id="reel2"
+        >
+
+            <div class="symbol">
+                ⭐
+            </div>
+
+            <div class="symbol">
+                🍒
+            </div>
+
+            <div class="symbol">
+                🍋
+            </div>
+
+        </div>
+
+
+        <div
+            class="reel"
+            id="reel3"
+        >
+
+            <div class="symbol">
+                🍉
+            </div>
+
+            <div class="symbol">
+                💎
+            </div>
+
+            <div class="symbol">
+                🍊
+            </div>
+
+        </div>
+
+
+        <div
+            class="reel"
+            id="reel4"
+        >
+
+            <div class="symbol">
+                🍋
+            </div>
+
+            <div class="symbol">
+                ⭐
+            </div>
+
+            <div class="symbol">
+                🍒
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- RESULT MESSAGE -->
+
+    <div
+        id="message"
+        class="message"
+    >
+        🎰 Spin to play!
+    </div>
+
+
+    <!-- BET CONTROLS -->
+
+    <div class="controls">
+
+
+        <button
+            id="betMinus"
+            type="button"
+        >
+            −
+        </button>
+
+
+        <div class="bet-control">
+
+            Bet:
+
+            <strong id="betControl">
+                10
+            </strong>
+
+        </div>
+
+
+        <button
+            id="betPlus"
+            type="button"
+        >
+            +
+        </button>
+
+
+    </div>
+
+
+    <!-- SPIN -->
+
+    <button
+        id="spinButton"
+        class="spin-button"
+        type="button"
+    >
+
+        🎰 SPIN
+
+    </button>
+
+
+    <!-- HISTORY -->
+
+    <button
+        id="historyButton"
+        class="reset-button"
+        type="button"
+    >
+
+        📜 Spin History
+
+    </button>
+
+
+    <div
+        id="history"
+        class="history"
+    ></div>
+
+
+</div>
+
+
+<!-- YOUR EXISTING GAME JS -->
+
+<script src="/js/game.js"></script>
+
+
+</body>
+
+</html>

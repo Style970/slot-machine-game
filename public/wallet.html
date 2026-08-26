@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Add Balance</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+</head>
+
+<body>
+
+<div class="wallet-page">
+
+    <div class="wallet-card">
+
+        <button
+            id="backButton"
+            class="back-button"
+        >
+            ← Back
+        </button>
+
+
+        <h1>
+            💰 Add Balance
+        </h1>
+
+
+        <div class="wallet-balance">
+
+            Current Balance
+
+            <strong id="walletBalance">
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <h3>
+            Select Amount
+        </h3>
+
+
+        <div class="amount-grid">
+
+            <button
+                data-amount="100"
+            >
+                ₹100
+            </button>
+
+            <button
+                data-amount="200"
+            >
+                ₹200
+            </button>
+
+            <button
+                data-amount="500"
+            >
+                ₹500
+            </button>
+
+            <button
+                data-amount="1000"
+            >
+                ₹1,000
+            </button>
+
+            <button
+                data-amount="2000"
+            >
+                ₹2,000
+            </button>
+
+            <button
+                data-amount="5000"
+            >
+                ₹5,000
+            </button>
+
+        </div>
+
+
+        <label>
+            Amount
+        </label>
+
+
+        <input
+            id="amount"
+            type="number"
+            min="100"
+            step="100"
+            placeholder="Enter amount"
+        >
+
+
+        <button
+            id="payButton"
+            class="pay-button"
+        >
+            Continue to Payment
+        </button>
+
+
+        <div
+            id="paymentBox"
+            class="payment-box hidden"
+        >
+
+            <h3>
+                Complete Payment
+            </h3>
+
+
+            <div id="qrContainer">
+
+            </div>
+
+
+            <a
+                id="paymentLink"
+                class="payment-link"
+                target="_blank"
+                rel="noopener"
+            >
+                Open Payment
+            </a>
+
+
+            <p>
+                Order:
+                <span id="orderId"></span>
+            </p>
+
+
+            <p
+                id="paymentStatus"
+            >
+                Waiting for payment...
+            </p>
+
+
+            <button
+                id="checkButton"
+                class="check-button"
+            >
+                Check Payment
+            </button>
+
+        </div>
+
+
+        <h3>
+            Deposit History
+        </h3>
+
+
+        <div
+            id="depositHistory"
+            class="deposit-history"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<script src="/js/wallet.js"></script>
+
+</body>
+
+</html>
