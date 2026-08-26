@@ -31,4 +31,4 @@ USER node
 EXPOSE 4000
  
 # Run Vite in dev mode, accessible outside the container
-CMD ["npm", "run", "dev" ]
+CMD ["npm", "run", "start" ]
