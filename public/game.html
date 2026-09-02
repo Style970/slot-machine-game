@@ -984,6 +984,34 @@
             border-radius: 10px;
 
         }
+        .sound-control {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.sound-control button  {
+    padding: 9px 14px;
+    border: 1px solid #475569;
+    border-radius: 10px;
+    background: #111827;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.sound-control button:active {
+    transform: scale(.96);
+}
+.add-balance-button{
+  padding: 9px 14px;
+    border: 1px solid #475569;
+    border-radius: 10px;
+    background: #111827;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
 
     </style>
 
@@ -1010,12 +1038,20 @@
 
         </div>
 
+      <div class="sound-control">
 
+    <button id="soundButton">
+        🔊 Sound ON
+    </button>
+
+    </div>
+    
         <button
             id="logoutButton"
         >
             Logout
         </button>
+        
 
     </div>
 
@@ -1028,15 +1064,15 @@
 
 
     <!-- BALANCE -->
-       <button
-    id="addBalanceButton"
-    class="add-balance-button"
-   >
-    💰 Add Balance
-  </button>
+
   
     <div class="balance-box">
-
+     <button
+    id="addBalanceButton"
+    class="add-balance-button"
+     >
+    💳 Add
+    </button>
         💰 Balance:
 
         <span id="balance">
@@ -1248,7 +1284,7 @@
 
 
 <!-- YOUR EXISTING GAME JS -->
-
+<script src="/js/sound.js"></script>
 <script src="/js/game.js"></script>
 
 

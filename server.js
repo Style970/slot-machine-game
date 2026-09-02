@@ -33,6 +33,9 @@ const adminRoutes =
     
  const walletRoutes =
     require("./routes/wallet.routes");
+    
+    const paymentRoutes =
+    require("./routes/payment.routes");
 
 
 const app =
@@ -123,11 +126,17 @@ app.use(
     adminRoutes
 );
 
+/*
 app.use(
     "/api/wallet",
     walletRoutes
 );
+*/
 
+app.use(
+    "/api/payment",
+    paymentRoutes
+);
 
 /* =========================
    HEALTH

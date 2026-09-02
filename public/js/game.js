@@ -178,7 +178,7 @@ function animateReel(
         reel.classList.add(
             "spinning"
         );
-
+       
 
         const interval =
             setInterval(() => {
@@ -204,7 +204,7 @@ function animateReel(
             reel.classList.remove(
                 "spinning"
             );
-
+          playGameSound( sounds.reel);
 
             const elements =
                 reel.querySelectorAll(
@@ -331,7 +331,9 @@ async function spin() {
 
     spinning = true;
 
-
+   playGameSound(
+    sounds.spin
+    );
     spinButton.disabled = true;
 
     betMinus.disabled = true;
@@ -449,6 +451,7 @@ async function spin() {
         if (
             data.winnings > 0
         ) {
+          
 
             const jackpot =
                 data.wins.some(
@@ -458,15 +461,16 @@ async function spin() {
 
 
             if (jackpot) {
-
+               playGameSound(sounds.jackpot);
                 messageElement.textContent =
                     `🎉 JACKPOT! +${data.winnings}`;
-
+    
                 messageElement.className =
                     "message jackpot";
-
+                    playGameSound(sounds.jackpot2);
+      
             } else {
-
+                playGameSound(sounds.win);
                 messageElement.textContent =
                     `🎉 WIN! +${data.winnings}`;
 
@@ -476,6 +480,9 @@ async function spin() {
             }
 
         } else {
+          playGameSound(
+          sounds.lose
+         );
 
             messageElement.textContent =
                 "😢 No win";
@@ -502,7 +509,7 @@ async function spin() {
 
     spinning = false;
 
-
+    stopSound(sounds.spin);
     spinButton.disabled = false;
 
     betMinus.disabled = false;
@@ -525,7 +532,7 @@ betPlus.addEventListener(
             bet < 100
         ) {
 
-            bet += 10;
+            bet += 5;
 
             updateUI();
 
@@ -545,10 +552,10 @@ betMinus.addEventListener(
 
         if (
             !spinning &&
-            bet > 10
+            bet > 5
         ) {
 
-            bet -= 10;
+            bet -= 5;
 
             updateUI();
 
@@ -671,7 +678,7 @@ document
         () => {
 
             window.location.href =
-                "/wallet.html";
+                "/payment.html";
 
         }
     );

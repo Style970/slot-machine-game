@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Successful</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f4f7fb;
+      padding: 20px;
+    }
+
+    .success-card {
+      width: 100%;
+      max-width: 430px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .success-icon {
+      width: 85px;
+      height: 85px;
+      margin: 0 auto 25px;
+      background: #e8f9ef;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-icon span {
+      width: 58px;
+      height: 58px;
+      background: #22c55e;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      font-weight: bold;
+    }
+
+    h1 {
+      color: #172033;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .message {
+      color: #6b7280;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .amount {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 25px;
+    }
+
+    .amount small {
+      display: block;
+      color: #6b7280;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .amount strong {
+      font-size: 30px;
+      color: #111827;
+    }
+
+    .details {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 20px;
+      margin-bottom: 28px;
+    }
+
+    .detail {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+
+    .detail:last-child {
+      margin-bottom: 0;
+    }
+
+    .label {
+      color: #6b7280;
+    }
+
+    .value {
+      color: #1f2937;
+      font-weight: 600;
+    }
+
+    .status {
+      color: #16a34a;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .button:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    .support {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #9ca3af;
+    }
+
+    @media (max-width: 480px) {
+      .success-card {
+        padding: 32px 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .amount strong {
+        font-size: 26px;
+      }
+    }
+    
+    .
+  </style>
+</head>
+
+<body>
+
+  <div class="success-card">
+
+    <div class="success-icon">
+      <span>✓</span>
+    </div>
+
+    <h1>Payment Successful!</h1>
+
+    <p class="message">
+      Thank you for your payment. Your transaction has been completed successfully.
+    </p>
+
+    <div class="amount">
+      <small>Amount Paid</small>
+      <strong>₹2,499.00</strong>
+    </div>
+
+    <div class="details">
+      <div class="detail">
+        <span class="label">Transaction ID</span>
+        <span class="value">TXN458921</span>
+      </div>
+
+      <div class="detail">
+        <span class="label">Payment Method</span>
+        <span class="value">UPI</span>
+      </div>
+
+      <div class="detail">
+        <span class="label">Date</span>
+        <span class="value">31 Aug 2026</span>
+      </div>
+
+      <div class="detail">
+        <span class="label">Status</span>
+        <span class="value status">Completed</span>
+      </div>
+    </div>
+
+    <a href="#" class="button">Continue</a>
+
+    <p class="support">
+      A payment confirmation has been sent to your email.
+    </p>
+
+  </div>
+
+  
+  <script>
+    
+    async function loadPayment() {
+      
+  try {
+    const response = await fetch("/api/payment/status", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(orderId) // Converts JavaScript object to JSON string
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log('Success:', result);
+  } catch (error) {
+    console.error('Error creating user:', error.message);
+  }
+}
+
+
+
+  </script>
+
+</body>
+</html>

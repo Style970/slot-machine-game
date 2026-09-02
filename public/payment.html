@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Payment</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h1>
+            💳 Payment
+        </h1>
+
+
+        <label>
+            Amount
+        </label>
+
+
+        <input
+            type="number"
+            id="amount"
+            value="100"
+            min="10"
+            max="100000"
+        >
+
+
+        <button
+            id="payButton"
+            class="primary-button"
+        >
+            Pay with PhonePe
+        </button>
+
+
+        <div
+            id="paymentMessage"
+            class="form-message"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const token =
+    localStorage.getItem("token");
+
+
+if (!token) {
+
+    window.location.href =
+        "/index.html";
+
+}
+
+
+const amountInput =
+    document.getElementById(
+        "amount"
+    );
+
+
+const payButton =
+    document.getElementById(
+        "payButton"
+    );
+
+
+const message =
+    document.getElementById(
+        "paymentMessage"
+    );
+
+
+payButton.addEventListener(
+    "click",
+    async () => {
+
+        const amount =
+            Number(
+                amountInput.value
+            );
+
+
+        try {
+
+            payButton.disabled =
+                true;
+
+
+            message.textContent =
+                "Creating payment...";
+
+
+            const response =
+                await fetch(
+                    "/api/payment/create",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            Authorization:
+                                `Bearer ${token}`
+
+                        },
+
+                        body:
+                            JSON.stringify({
+                                amount
+                            })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Payment creation failed"
+                );
+
+            }
+
+
+            /*
+             * Redirect to PhonePe.
+             */
+             
+           window.location.href = data.checkoutUrl;
+
+
+        } catch (error) {
+
+            message.textContent =
+                error.message;
+
+            payButton.disabled =
+                false;
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
