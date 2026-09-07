@@ -161,6 +161,50 @@ function displayGrid(grid) {
     }
 
 }
+/* =========================
+   HIGHLIGHT WINS
+========================= */
+
+function highlightWins(
+    wins,
+    paylines
+) {
+  
+    wins.forEach(win => {
+
+        const line =
+            paylines[win.line];
+
+        for (
+            let reel = 0;
+            reel < win.count;
+            reel++
+        ) {
+
+            const row =
+                line[reel];
+
+
+            const element =
+                reels[reel]
+                    .querySelectorAll(
+                        ".symbol"
+                    )[row];
+
+            if (element) {
+
+                element.classList.add(
+                    "win"
+                );
+
+            }
+
+        }
+
+    });
+
+}
+
 
 
 /* =========================
@@ -280,7 +324,7 @@ async function loadUser() {
         localStorage.clear();
 
         window.location.href =
-            "/login.html";
+            "/index.html";
 
     }
 
@@ -303,6 +347,28 @@ function updateUI() {
         bet;
 
 }
+
+/* =========================
+   HIGHLIGHT WINS
+========================= */
+
+
+function clearWins() {
+
+    document
+        .querySelectorAll(".symbol.win")
+        .forEach(element => {
+
+            element.classList.remove(
+                "win"
+            );
+
+        });
+
+}
+
+
+
 
 
 /* =========================
@@ -339,7 +405,8 @@ async function spin() {
     betMinus.disabled = true;
 
     betPlus.disabled = true;
-
+   
+    clearWins();
 
     messageElement.textContent =
         "🎰 Spinning...";
@@ -452,12 +519,20 @@ async function spin() {
             data.winnings > 0
         ) {
           
+          highlightWins(
+            data.wins,
+            data.paylines
+        );
 
+        
             const jackpot =
                 data.wins.some(
                     win =>
                         win.count === 5
                 );
+             const meghaWin = data.wins.some(
+               win => win.count === 4
+               );
 
 
             if (jackpot) {
@@ -469,7 +544,13 @@ async function spin() {
                     "message jackpot";
                     playGameSound(sounds.jackpot2);
       
-            } else {
+            } else if(meghaWin){
+              messageElement.textContent =
+                    `🎉 MEGHA WIN! +${data.winnings}`;
+                    playGameSound(sounds.meghaWin);
+                    messageElement.className =
+                    "message jackpot";
+            }else {
                 playGameSound(sounds.win);
                 messageElement.textContent =
                     `🎉 WIN! +${data.winnings}`;

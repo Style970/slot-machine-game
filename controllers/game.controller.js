@@ -6,7 +6,8 @@ const Spin = require("../models/Spin");
 const {
     generateResult,
     checkPaylines,
-    calculateWinnings
+    calculateWinnings,
+    paylines
 } = require("../utils/slot");
 
 
@@ -194,7 +195,8 @@ exports.spin = async (req, res) => {
                 finalUser.balance,
 
             spinId:
-                spin._id
+                spin._id,
+                paylines: paylines
 
         });
 

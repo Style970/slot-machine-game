@@ -9,7 +9,8 @@ const sounds = {
     freeSpin: new Audio("/sounds/free-spin.mp3"),
     lose: new Audio("/sounds/mixkit-lose.wav"),
     jackpot: new Audio("/sounds/jackpot-2.mp3"),
-    jackpot2: new Audio("/sounds/jackport.mp3")
+    jackpot2: new Audio("/sounds/jackport.mp3"),
+    meghaWin: new Audio("/sounds/meghaWin.mp3")
 };
 
 
