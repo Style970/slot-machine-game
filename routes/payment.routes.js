@@ -15,6 +15,11 @@ const {
     require(
         "../controllers/payment.controller"
     );
+    
+    const {htmlPaymentStatus} = require(
+        "../controllers/payStatus.controller.js" );
+    
+    
 
 
 router.post(
@@ -28,6 +33,8 @@ router.get(
     "/status",
     checkPaymentStatus
 );
+
+router.post("/status",auth, htmlPaymentStatus);
 
 
 module.exports = router;

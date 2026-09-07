@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment Successful</title>
-
-  <style>
+  <title>Payment Failed</title>
+    <style>
     * {
       margin: 0;
       padding: 0;
@@ -46,7 +45,7 @@
     .success-icon span {
       width: 58px;
       height: 58px;
-      background: #22c55e;
+      background: red;
       color: white;
       border-radius: 50%;
       display: flex;
@@ -62,12 +61,6 @@
       margin-bottom: 10px;
     }
 
-    .message {
-      color: #6b7280;
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 30px;
-    }
 
     .amount {
       background: #f8fafc;
@@ -115,7 +108,7 @@
     }
 
     .status {
-      color: #16a34a;
+      color: red;
     }
 
     .button {
@@ -158,42 +151,28 @@
       }
     }
     
-    .
+    
   </style>
-</head>
+  </head>
 
 <body>
-
-  <div class="success-card">
+    <div class="success-card">
 
     <div class="success-icon">
-      <span id="status-icon">✓</span>
+      <span id="status-icon">X</span>
     </div>
 
-    <h1 id="status-text">Payment Successful!</h1>
-
-    <p class="message" id="status-desc">
-      Thank you for your payment. Your transaction has been completed successfully.
-    </p>
-
-    <div class="amount">
+    <h1 id="status-text">Payment Failed!</h1>
+    
+        <div class="amount">
       <small id="amount-text">Amount Paid</small>
       <strong id="amount">₹</strong>
     </div>
-
-    <div class="details">
+    
+        <div class="details">
       <div class="detail">
         <span class="label" >Order ID</span>
         <span class="value" id="orderId"></span>
-      </div>
-      <div class="detail">
-        <span class="label">Transaction ID</span>
-        <span class="value" id="transactionValue"></span>
-      </div>
-
-      <div class="detail">
-        <span class="label">Payment Method</span>
-        <span class="value" id="type"></span>
       </div>
 
       <div class="detail">
@@ -206,85 +185,40 @@
         <span class="value status" id="status"></span>
       </div>
     </div>
-
-    <a href="/game.html" class="button">Continue</a>
+    
+        <a href="/game.html" class="button">Continue</a>
 
     <p class="support">
       A payment confirmation has been sent to your email.
     </p>
-
-  </div>
-
-  
-  <script>
     
-    const token =
+    </div>
+    
+    <script>
+      const token =
     localStorage.getItem("token");
-    const statusIcon =
-    document.getElementById("status-icon");
-    const statusText =
-    document.getElementById("status-text");
-    const statusDesc =
-    document.getElementById("status-desc");
-    const amount =
-    document.getElementById("amount");
-    const type =
-    document.getElementById("type");
-    const payDate =
-    document.getElementById("payDate");
-    const status =
-    document.getElementById("status");
-    transactionId = document.getElementById("transactionValue");
-    orderId = document.getElementById("orderId");
+   const orderId = document.getElementById("orderId");
+   const statusValue = document.getElementById("status");
+   const dateTime = document.getElementById("payDate");
+    const amount = document.getElementById("amount");
     
     const params = new URLSearchParams(window.location.search);
     const id = params.get('orderId');
+    const urlStatus = params.get('status');
+    const urlamount = params.get('amount');
+    const urlTime = params.get('time');
+const date = new Date(urlTime);
+const formattedDate = date.toISOString().replace('T', ' ').substring(0, 19);
+ 
+console.log(formattedDate); 
+// Output: "2026-09-06 10:56:00"
+
     
-    if(!id){
-      window.location.href = "/index.html";
-    }
-    
-    async function loadPayment() {
+      orderId.textContent = id;
+      statusValue.textContent = urlStatus;
+      amount.textContent = urlamount;
+      dateTime.textContent = formattedDate;
       
-  try {
-    const response = await fetch("/api/payment/status", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-       Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({orderId: id}) // Converts JavaScript object to JSON string
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    
-    }
-
-    const result = await response.json();
-    const date = new Date(result.timestamp);
-     const formattedDate = date.toISOString().replace('T', ' ').substring(0, 19);
-    
-    if(result.success){
-      status.textContent = result.phonePeState;
-      amount.textContent = `₹ ${result.amount}`;
-      type.textContent = result.paymentMode;
-      transactionId.textContent = result.transactionId;
-      orderId.textContent = result.orderId;
-      payDate.textContent = formattedDate;
-      
-    }
-    if(result.phonePeState === 'FAILED' || result.status === 'PENDING'){
-      window.location.href = `/status-faild.html?orderId=${result.orderId}&status=${result.status}&amount=${result.amount}&time=${result.timestamp}`;
-    }
-  } catch (error) {
-    console.error('Error creating user:', error.message);
-  }
-}
-
-loadPayment();
-
-  </script>
-
-</body>
+    </script>
+ </body>
 </html>

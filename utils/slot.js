@@ -35,48 +35,113 @@ const symbols = [{
   }];
 
 
+const PAYLINES = [
+
+  [0, 0, 0, 0, 0],//0
+
+  [1, 1, 1, 1, 1],//1
+
+  [2, 2, 2, 2, 2],//2
+
+  [0, 1, 2, 1, 0],//3
+
+  [2, 1, 0, 1, 2],//4
+
+  [0, 0, 1, 0, 0],//5
+
+  [2, 2, 1, 2, 2],//6
+
+  [1, 0, 0, 0, 1],//7
+
+  [1, 2, 2, 2, 1],//8
+
+  [0, 1, 1, 1, 0],//9
+
+  [2, 1, 1, 1, 2],//10
+
+  [1, 1, 0, 1, 1],//11
+
+  [1, 1, 2, 1, 1],//12
+
+  [0, 2, 0, 2, 0],//13
+
+  [2, 0, 2, 0, 2],//14
+
+  [0, 2, 2, 2, 0],//15
+
+  [2, 0, 0, 0, 2],//16
+
+  [0, 1, 2, 2, 2],//17
+
+  [2, 1, 0, 0, 0],//18
+
+  [1, 0, 1, 2, 1]//19
+
+];
+
+// 5 reels × 3 rows
+// row: 0 = top, 1 = middle, 2 = bottom
+
 const paylines = [
-
-  [0, 0, 0, 0, 0],
-
+  // 1. Straight middle
   [1, 1, 1, 1, 1],
 
+  // 2. Straight top
+  [0, 0, 0, 0, 0],
+
+  // 3. Straight bottom
   [2, 2, 2, 2, 2],
 
+  // 4. V shape
   [0, 1, 2, 1, 0],
 
+  // 5. Inverted V
   [2, 1, 0, 1, 2],
 
+  // 6. Top → middle → top
   [0, 0, 1, 0, 0],
 
+  // 7. Bottom → middle → bottom
   [2, 2, 1, 2, 2],
 
+  // 8. Middle → top → middle
   [1, 0, 0, 0, 1],
 
+  // 9. Middle → bottom → middle
   [1, 2, 2, 2, 1],
 
+  // 10. Top → middle → middle → middle → top
   [0, 1, 1, 1, 0],
 
+  // 11. Bottom → middle → middle → middle → bottom
   [2, 1, 1, 1, 2],
 
-  [1, 1, 0, 1, 1],
+  // 12. Top zig-zag
+  [0, 1, 0, 1, 0],
 
-  [1, 1, 2, 1, 1],
+  // 13. Bottom zig-zag
+  [2, 1, 2, 1, 2],
 
-  [0, 2, 0, 2, 0],
+  // 14. Middle → top → middle → top → middle
+  [1, 0, 1, 0, 1],
 
-  [2, 0, 2, 0, 2],
+  // 15. Middle → bottom → middle → bottom → middle
+  [1, 2, 1, 2, 1],
 
-  [0, 2, 2, 2, 0],
+  // 16. Top → top → middle → bottom → bottom
+  [0, 0, 1, 2, 2],
 
-  [2, 0, 0, 0, 2],
+  // 17. Bottom → bottom → middle → top → top
+//  [2, 2, 1, 0, 0],
 
-  [0, 1, 2, 2, 2],
+  // 18. Top → middle → top → middle → top
+  [0, 1, 0, 1, 0],
 
-  [2, 1, 0, 0, 0],
+  // 19. Bottom → middle → bottom → middle → bottom
+  [2, 1, 2, 1, 2],
 
-  [1, 0, 1, 2, 1]
-
+  // 20. Middle → middle → top → middle → middle
+  [1, 1, 0, 1, 1]
 ];
 
 
@@ -168,7 +233,7 @@ function checkPaylines(grid) {
         wins.push({
 
           line:
-          lineIndex + 1,
+          lineIndex,
 
           symbol:
           first,
@@ -184,7 +249,7 @@ function checkPaylines(grid) {
 
     }
   );
-
+  
   return wins;
 
 }
@@ -217,12 +282,11 @@ function createWinningGrid() {
 
   let count;
 
-
-  if (roll < 0.55) {
+  if (roll < 0.50) {
 
     count = 3;
 
-  } else if (roll < 0.85) {
+  } else if (roll < 0.80) {
 
     count = 4;
 
@@ -286,7 +350,7 @@ function generateResult(
   const roll =
   Math.random() * 100;
 
-
+ // agar winPercentage ki value 
   if (
     roll < winPercentage
   ) {
@@ -300,7 +364,7 @@ function generateResult(
 
 }
 
-
+// yahan se win price calculate hoga
 function calculateWinnings(
   wins,
   bet
@@ -328,19 +392,24 @@ function calculateWinnings(
 
     }
 
-
     total += Math.floor(
       bet *
       win.multiplier *
       factor
     );
 
+    
   }
-
+ 
 
   return total;
 
 }
+
+
+/* =========================
+   CLEAR WINS
+========================= */
 
 
 module.exports = {
@@ -353,6 +422,6 @@ module.exports = {
 
   paylines,
 
-  symbols
-
+  symbols,
+  
 };

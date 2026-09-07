@@ -1,5 +1,12 @@
 const API = "/api";
 
+const token =
+    localStorage.getItem("token");
+    
+    if(token){
+      window.location.href =
+        "/game.html";
+    }
 
 function saveAuth(data) {
 
